@@ -463,4 +463,12 @@ abstract class GoogleMapsFlutterPlatform extends PlatformInterface {
       mapOptions: jsonForMapConfiguration(mapConfiguration),
     );
   }
+
+  /// Populates [GoogleMapsFlutterInspectorPlatform.instance] to allow
+  /// inspecting the platform map state.
+  @visibleForTesting
+  void enableDebugInspection() {
+    throw UnimplementedError(
+        'enableDebugInspection() has not been implemented.');
+  }
 }
