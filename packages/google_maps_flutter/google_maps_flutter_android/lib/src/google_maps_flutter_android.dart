@@ -383,7 +383,7 @@ class GoogleMapsFlutterAndroid extends GoogleMapsFlutterPlatform {
   }) {
     assert(groundOverlayUpdates != null);
     return _channel(mapId).invokeMethod<void>(
-      'groundOverlay#update',
+      'groundOverlays#update',
       groundOverlayUpdates.toJson(),
     );
   }
