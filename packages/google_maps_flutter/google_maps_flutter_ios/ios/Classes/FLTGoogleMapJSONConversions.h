@@ -24,6 +24,16 @@ NS_ASSUME_NONNULL_BEGIN
 + (GMSCoordinateBounds *)coordinateBoundsFromLatLongs:(NSArray *)latlongs;
 + (GMSMapViewType)mapViewTypeFromTypeValue:(NSNumber *)value;
 + (nullable GMSCameraUpdate *)cameraUpdateFromChannelValue:(NSArray *)channelValue;
++ (bool)toBool:(NSNumber*)data;
++ (int)toInt:(NSNumber*)data;
++ (double)toDouble:(NSNumber*)data;
++ (float)toFloat:(NSNumber*)data;
++ (CLLocationCoordinate2D)toLocation:(NSArray*)data;
++ (CGPoint)toPoint:(NSArray*)data;
++ (NSArray*)positionToJson:(CLLocationCoordinate2D)position;
++ (UIColor*)toColor:(NSNumber*)data;
++ (NSArray<CLLocation*>*)toPoints:(NSArray*)data;
++ (NSArray<NSArray<CLLocation*>*>*)toHoles:(NSArray*)data;
 
 @end
 
