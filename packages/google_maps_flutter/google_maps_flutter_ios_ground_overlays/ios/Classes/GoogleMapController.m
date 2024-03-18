@@ -67,7 +67,7 @@
 @property(nonatomic, strong) FLTPolylinesController *polylinesController;
 @property(nonatomic, strong) FLTCirclesController *circlesController;
 @property(nonatomic, strong) FLTTileOverlaysController *tileOverlaysController;
-@property(nonatomic, strong) FLTGroundOverlaysController* _groundOverlaysController;
+@property(nonatomic, strong) FLTGroundOverlaysController *groundOverlaysController;
 @end
 
 @implementation FLTGoogleMapController
@@ -575,8 +575,8 @@
     [self.polygonsController didTapPolygonWithIdentifier:overlayId];
   } else if ([self.circlesController hasCircleWithIdentifier:overlayId]) {
     [self.circlesController didTapCircleWithIdentifier:overlayId];
-  } else if ([_groundOverlaysController hasGroundOverlayWithId:overlayId]) {
-    [_groundOverlaysController onGroundOverlayTap:overlayId];
+  } else if ([self.groundOverlaysController hasGroundOverlayWithId:overlayId]) {
+    [self.groundOverlaysController onGroundOverlayTap:overlayId];
   }
 }
 

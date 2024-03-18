@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 #import "GoogleMapGroundOverlayController.h"
-#import "JsonConversions.h"
+#import "FLTGoogleMapJSONConversions.h"
 
 static UIImage* ExtractBitmapDescriptor(NSObject<FlutterPluginRegistrar>* registrar, NSArray* bitmap);
 
@@ -79,40 +79,28 @@ static UIImage* ExtractBitmapDescriptor(NSObject<FlutterPluginRegistrar>* regist
 }
 @end
 
-static int ToInt(NSNumber* data) { return [FLTGoogleMapJsonConversions toInt:data]; }
-
-static BOOL ToBool(NSNumber* data) { return [FLTGoogleMapJsonConversions toBool:data]; }
-
-static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toDouble:data]; }
-
-static float ToFloat(NSNumber* data) { return [FLTGoogleMapJsonConversions toFloat:data]; }
-
-static CLLocationCoordinate2D ToLocation(NSArray* data) {
-  return [FLTGoogleMapJsonConversions toLocation:data];
-}
-
 static GMSCoordinateBounds* ToLatLngBounds(NSArray* data) {
-  return [[GMSCoordinateBounds alloc] initWithCoordinate:ToLocation(data[0])
-                                              coordinate:ToLocation(data[1])];
+  return [[GMSCoordinateBounds alloc] initWithCoordinate:[FLTGoogleMapJSONConversions locationFromLatLong:data[0]]
+                                              coordinate:[FLTGoogleMapJSONConversions locationFromLatLong:data[1]]];
 }
 
 static void InterpretGroundOverlayOptions(NSDictionary* data, id<FLTGoogleMapGroundOverlayOptionsSink> sink,
                                    NSObject<FlutterPluginRegistrar>* registrar) {
   NSNumber* consumeTapEvents = data[@"consumeTapEvents"];
   if (consumeTapEvents != nil) {
-    [sink setConsumeTapEvents:ToBool(consumeTapEvents)];
+    [sink setConsumeTapEvents:consumeTapEvents.boolValue];
   }
   NSNumber* visible = data[@"visible"];
   if (visible != nil) {
-    [sink setVisible:ToBool(visible)];
+    [sink setVisible:visible.boolValue];
   }
   NSNumber* zIndex = data[@"zIndex"];
   if (zIndex != nil) {
-    [sink setZIndex:ToInt(zIndex)];
+    [sink setZIndex:zIndex.intValue];
   }
   NSNumber* transparency = data[@"transparency"];
   if (transparency != nil) {
-    float opacity = 1 - ToFloat(transparency);
+    float opacity = 1 - transparency.floatValue;
     [sink setOpacity:opacity];
   }
   NSNumber* width = data[@"width"];
@@ -120,10 +108,10 @@ static void InterpretGroundOverlayOptions(NSDictionary* data, id<FLTGoogleMapGro
   NSArray* location = data[@"location"];
   if (location) {
     if (height != nil) {
-      [sink setLocation:ToLocation(location) width:ToDouble(width) height:ToDouble(height)];
+      [sink setLocation:[FLTGoogleMapJSONConversions locationFromLatLong:location] width:width.doubleValue height:height.doubleValue];
     } else {
       if (width != nil) {
-        [sink setLocation:ToLocation(location) width:ToDouble(width) height:0];
+        [sink setLocation:[FLTGoogleMapJSONConversions locationFromLatLong:location] width:width.doubleValue height:0];
       }
     }
   }
@@ -133,7 +121,7 @@ static void InterpretGroundOverlayOptions(NSDictionary* data, id<FLTGoogleMapGro
   }
   NSNumber* bearing = data[@"bearing"];
   if (bearing != nil) {
-    [sink setBearing:ToFloat(bearing)];
+    [sink setBearing:bearing.floatValue];
   }  
   NSArray* bitmap = data[@"bitmap"];
   if (bitmap) {
