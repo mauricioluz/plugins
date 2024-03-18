@@ -10,7 +10,7 @@ import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_maps/google_maps.dart' as gmaps;
-import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
+import 'package:google_maps_flutter_platform_interface_ground_overlays/google_maps_flutter_platform_interface_ground_overlays.dart';
 import 'package:google_maps_flutter_web/google_maps_flutter_web.dart';
 import 'package:http/http.dart' as http;
 import 'package:integration_test/integration_test.dart';
@@ -52,8 +52,7 @@ void main() {
       };
       controller.addMarkers(markers);
 
-      expect(
-          controller.markers[const MarkerId('1')]?.marker?.draggable, isFalse);
+      expect(controller.markers[const MarkerId('1')]?.marker?.draggable, isFalse);
 
       // Update the marker with radius 10
       final Set<Marker> updatedMarkers = <Marker>{
@@ -62,8 +61,7 @@ void main() {
       controller.changeMarkers(updatedMarkers);
 
       expect(controller.markers.length, 1);
-      expect(
-          controller.markers[const MarkerId('1')]?.marker?.draggable, isTrue);
+      expect(controller.markers[const MarkerId('1')]?.marker?.draggable, isTrue);
     });
 
     testWidgets('removeMarkers', (WidgetTester tester) async {
@@ -113,8 +111,7 @@ void main() {
     });
 
     // https://github.com/flutter/flutter/issues/67380
-    testWidgets('only single InfoWindow is visible',
-        (WidgetTester tester) async {
+    testWidgets('only single InfoWindow is visible', (WidgetTester tester) async {
       final Set<Marker> markers = <Marker>{
         const Marker(
           markerId: MarkerId('1'),
@@ -142,8 +139,7 @@ void main() {
     });
 
     // https://github.com/flutter/flutter/issues/66622
-    testWidgets('markers with custom bitmap icon work',
-        (WidgetTester tester) async {
+    testWidgets('markers with custom bitmap icon work', (WidgetTester tester) async {
       final Uint8List bytes = const Base64Decoder().convert(iconImageBase64);
       final Set<Marker> markers = <Marker>{
         Marker(
@@ -155,22 +151,18 @@ void main() {
       controller.addMarkers(markers);
 
       expect(controller.markers.length, 1);
-      final gmaps.Icon? icon =
-          controller.markers[const MarkerId('1')]?.marker?.icon as gmaps.Icon?;
+      final gmaps.Icon? icon = controller.markers[const MarkerId('1')]?.marker?.icon as gmaps.Icon?;
       expect(icon, isNotNull);
 
       final String blobUrl = icon!.url!;
       expect(blobUrl, startsWith('blob:'));
 
       final http.Response response = await http.get(Uri.parse(blobUrl));
-      expect(response.bodyBytes, bytes,
-          reason:
-              'Bytes from the Icon blob must match bytes used to create Marker');
+      expect(response.bodyBytes, bytes, reason: 'Bytes from the Icon blob must match bytes used to create Marker');
     });
 
     // https://github.com/flutter/flutter/issues/73789
-    testWidgets('markers with custom bitmap icon pass size to sdk',
-        (WidgetTester tester) async {
+    testWidgets('markers with custom bitmap icon pass size to sdk', (WidgetTester tester) async {
       final Uint8List bytes = const Base64Decoder().convert(iconImageBase64);
       final Set<Marker> markers = <Marker>{
         Marker(
@@ -182,8 +174,7 @@ void main() {
       controller.addMarkers(markers);
 
       expect(controller.markers.length, 1);
-      final gmaps.Icon? icon =
-          controller.markers[const MarkerId('1')]?.marker?.icon as gmaps.Icon?;
+      final gmaps.Icon? icon = controller.markers[const MarkerId('1')]?.marker?.icon as gmaps.Icon?;
       expect(icon, isNotNull);
 
       final gmaps.Size size = icon!.size!;
@@ -196,8 +187,7 @@ void main() {
     });
 
     // https://github.com/flutter/flutter/issues/67854
-    testWidgets('InfoWindow snippet can have links',
-        (WidgetTester tester) async {
+    testWidgets('InfoWindow snippet can have links', (WidgetTester tester) async {
       final Set<Marker> markers = <Marker>{
         const Marker(
           markerId: MarkerId('1'),
@@ -211,8 +201,7 @@ void main() {
       controller.addMarkers(markers);
 
       expect(controller.markers.length, 1);
-      final html.HtmlElement? content = controller.markers[const MarkerId('1')]
-          ?.infoWindow?.content as html.HtmlElement?;
+      final html.HtmlElement? content = controller.markers[const MarkerId('1')]?.infoWindow?.content as html.HtmlElement?;
       expect(content?.innerHtml, contains('title for test'));
       expect(
           content?.innerHtml,
@@ -236,8 +225,7 @@ void main() {
       controller.addMarkers(markers);
 
       expect(controller.markers.length, 1);
-      final html.HtmlElement? content = controller.markers[const MarkerId('1')]
-          ?.infoWindow?.content as html.HtmlElement?;
+      final html.HtmlElement? content = controller.markers[const MarkerId('1')]?.infoWindow?.content as html.HtmlElement?;
 
       content?.click();
 

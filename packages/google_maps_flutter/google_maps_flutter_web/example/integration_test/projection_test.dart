@@ -11,9 +11,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart'
-    show GoogleMap, GoogleMapController;
-import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' show GoogleMap, GoogleMapController;
+import 'package:google_maps_flutter_platform_interface_ground_overlays/google_maps_flutter_platform_interface_ground_overlays.dart';
 import 'package:integration_test/integration_test.dart';
 
 // This value is used when comparing long~num, like LatLng values.
@@ -46,8 +45,7 @@ void main() {
     });
 
     group('getScreenCoordinate', () {
-      testWidgets('target of map is in center of widget',
-          (WidgetTester tester) async {
+      testWidgets('target of map is in center of widget', (WidgetTester tester) async {
         await pumpCenteredMap(
           tester,
           initialCamera: initialCamera,
@@ -57,8 +55,7 @@ void main() {
 
         final GoogleMapController controller = await controllerCompleter.future;
 
-        final ScreenCoordinate screenPosition =
-            await controller.getScreenCoordinate(center);
+        final ScreenCoordinate screenPosition = await controller.getScreenCoordinate(center);
 
         expect(
           screenPosition.x,
@@ -70,8 +67,7 @@ void main() {
         );
       });
 
-      testWidgets('NorthWest of visible region corresponds to x:0, y:0',
-          (WidgetTester tester) async {
+      testWidgets('NorthWest of visible region corresponds to x:0, y:0', (WidgetTester tester) async {
         await pumpCenteredMap(
           tester,
           initialCamera: initialCamera,
@@ -86,16 +82,13 @@ void main() {
           bounds.southwest.longitude,
         );
 
-        final ScreenCoordinate screenPosition =
-            await controller.getScreenCoordinate(northWest);
+        final ScreenCoordinate screenPosition = await controller.getScreenCoordinate(northWest);
 
         expect(screenPosition.x, closeTo(0, _acceptablePixelDelta));
         expect(screenPosition.y, closeTo(0, _acceptablePixelDelta));
       });
 
-      testWidgets(
-          'SouthEast of visible region corresponds to x:size.width, y:size.height',
-          (WidgetTester tester) async {
+      testWidgets('SouthEast of visible region corresponds to x:size.width, y:size.height', (WidgetTester tester) async {
         await pumpCenteredMap(
           tester,
           initialCamera: initialCamera,
@@ -110,8 +103,7 @@ void main() {
           bounds.northeast.longitude,
         );
 
-        final ScreenCoordinate screenPosition =
-            await controller.getScreenCoordinate(southEast);
+        final ScreenCoordinate screenPosition = await controller.getScreenCoordinate(southEast);
 
         expect(screenPosition.x, closeTo(size.width, _acceptablePixelDelta));
         expect(screenPosition.y, closeTo(size.height, _acceptablePixelDelta));
@@ -119,8 +111,7 @@ void main() {
     });
 
     group('getLatLng', () {
-      testWidgets('Center of widget is the target of map',
-          (WidgetTester tester) async {
+      testWidgets('Center of widget is the target of map', (WidgetTester tester) async {
         await pumpCenteredMap(
           tester,
           initialCamera: initialCamera,
@@ -144,8 +135,7 @@ void main() {
         );
       });
 
-      testWidgets('Top-left of widget is NorthWest bound of map',
-          (WidgetTester tester) async {
+      testWidgets('Top-left of widget is NorthWest bound of map', (WidgetTester tester) async {
         await pumpCenteredMap(
           tester,
           initialCamera: initialCamera,
@@ -174,8 +164,7 @@ void main() {
         );
       });
 
-      testWidgets('Bottom-right of widget is SouthWest bound of map',
-          (WidgetTester tester) async {
+      testWidgets('Bottom-right of widget is SouthWest bound of map', (WidgetTester tester) async {
         await pumpCenteredMap(
           tester,
           initialCamera: initialCamera,

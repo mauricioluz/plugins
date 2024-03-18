@@ -10,7 +10,7 @@ environment:
 
 flutter:
   plugin:
-    implements: google_maps_flutter
+    implements: google_maps_flutter_ground_overlays
     platforms:
       web:
         pluginClass: GoogleMapsPlugin

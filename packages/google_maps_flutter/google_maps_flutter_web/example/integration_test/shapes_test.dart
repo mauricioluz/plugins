@@ -9,7 +9,7 @@ import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_maps/google_maps.dart' as gmaps;
 import 'package:google_maps/google_maps_geometry.dart' as geometry;
-import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
+import 'package:google_maps_flutter_platform_interface_ground_overlays/google_maps_flutter_platform_interface_ground_overlays.dart';
 import 'package:google_maps_flutter_web/google_maps_flutter_web.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -144,8 +144,7 @@ void main() {
       };
       controller.addPolygons(polygons);
 
-      expect(
-          controller.polygons[const PolygonId('1')]?.polygon?.visible, isTrue);
+      expect(controller.polygons[const PolygonId('1')]?.polygon?.visible, isTrue);
 
       // Update the polygon
       final Set<Polygon> updatedPolygons = <Polygon>{
@@ -154,8 +153,7 @@ void main() {
       controller.changePolygons(updatedPolygons);
 
       expect(controller.polygons.length, 1);
-      expect(
-          controller.polygons[const PolygonId('1')]?.polygon?.visible, isFalse);
+      expect(controller.polygons[const PolygonId('1')]?.polygon?.visible, isFalse);
     });
 
     testWidgets('removePolygons', (WidgetTester tester) async {
@@ -255,8 +253,7 @@ void main() {
       expect(geometry.Poly.containsLocation(pointInHole, polygon), false);
     });
 
-    testWidgets('Hole Path gets reversed to display correctly',
-        (WidgetTester tester) async {
+    testWidgets('Hole Path gets reversed to display correctly', (WidgetTester tester) async {
       final Set<Polygon> polygons = <Polygon>{
         const Polygon(
           polygonId: PolygonId('BermudaTriangle'),
@@ -277,8 +274,7 @@ void main() {
 
       controller.addPolygons(polygons);
 
-      final gmaps.MVCArray<gmaps.MVCArray<gmaps.LatLng?>?> paths =
-          controller.polygons.values.first.polygon!.paths!;
+      final gmaps.MVCArray<gmaps.MVCArray<gmaps.LatLng?>?> paths = controller.polygons.values.first.polygon!.paths!;
 
       expect(paths.getAt(1)?.getAt(0)?.lat, 28.745);
       expect(paths.getAt(1)?.getAt(1)?.lat, 29.57);
