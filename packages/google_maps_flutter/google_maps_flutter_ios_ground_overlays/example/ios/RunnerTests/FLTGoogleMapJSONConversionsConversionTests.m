@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-@import google_maps_flutter_ios;
-@import google_maps_flutter_ios.Test;
+@import google_maps_flutter_ios_ground_overlays;
+@import google_maps_flutter_ios_ground_overlays.Test;
 @import XCTest;
 @import MapKit;
 @import GoogleMaps;
