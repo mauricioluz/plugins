@@ -1,7 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart' show VoidCallback;
-import 'package:meta/meta.dart' show immutable;
+import 'package:flutter/foundation.dart' show VoidCallback, immutable;
 
 import 'types.dart';
 
@@ -37,22 +36,10 @@ class GroundOverlay implements MapsObject<GroundOverlay> {
     this.anchor = Offset.zero,
     this.opacity = 1.0,
   })  : assert(
-            (height != null &&
-                    width != null &&
-                    location != null &&
-                    bounds == null) ||
-                (height == null &&
-                    width == null &&
-                    location == null &&
-                    bounds != null) ||
-                (height == null &&
-                    width != null &&
-                    location != null &&
-                    bounds == null) ||
-                (height == null &&
-                    width == null &&
-                    location == null &&
-                    bounds == null),
+            (height != null && width != null && location != null && bounds == null) ||
+                (height == null && width == null && location == null && bounds != null) ||
+                (height == null && width != null && location != null && bounds == null) ||
+                (height == null && width == null && location == null && bounds == null),
             "Only one of the three types of positioning is allowed, please refer "
             "to the https://developers.google.com/maps/documentation/android-sdk/groundoverlay#add_an_overlay"),
         assert(0.0 <= opacity && opacity <= 1.0);
@@ -70,8 +57,7 @@ class GroundOverlay implements MapsObject<GroundOverlay> {
     this.opacity = 1.0,
     this.visible = true,
     this.zIndex = 0,
-  })  : assert(opacity == null ||
-            (0.0 <= opacity && opacity <= 1.0)),
+  })  : assert(opacity == null || (0.0 <= opacity && opacity <= 1.0)),
         location = null,
         height = null,
         width = null;

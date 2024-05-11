@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import '../../google_maps_flutter_platform_interface.dart';
+import '../../google_maps_flutter_platform_interface_ground_overlays.dart';
 
 /// Generic Event coming from the native side of Maps.
 ///
@@ -107,8 +107,7 @@ class MarkerDragStartEvent extends _PositionedMapEvent<MarkerId> {
   ///
   /// The `position` on this event is the [LatLng] on which the Marker was picked up from.
   /// The `value` of this event is a [MarkerId] object that represents the Marker.
-  MarkerDragStartEvent(int mapId, LatLng position, MarkerId markerId)
-      : super(mapId, position, markerId);
+  MarkerDragStartEvent(int mapId, LatLng position, MarkerId markerId) : super(mapId, position, markerId);
 }
 
 /// An event fired when a [Marker] is being dragged to a new [LatLng].
@@ -117,8 +116,7 @@ class MarkerDragEvent extends _PositionedMapEvent<MarkerId> {
   ///
   /// The `position` on this event is the [LatLng] on which the Marker was dragged to.
   /// The `value` of this event is a [MarkerId] object that represents the Marker.
-  MarkerDragEvent(int mapId, LatLng position, MarkerId markerId)
-      : super(mapId, position, markerId);
+  MarkerDragEvent(int mapId, LatLng position, MarkerId markerId) : super(mapId, position, markerId);
 }
 
 /// An event fired when a [Marker] is dragged to a new [LatLng].
@@ -127,8 +125,7 @@ class MarkerDragEndEvent extends _PositionedMapEvent<MarkerId> {
   ///
   /// The `position` on this event is the [LatLng] on which the Marker was dropped.
   /// The `value` of this event is a [MarkerId] object that represents the moved Marker.
-  MarkerDragEndEvent(int mapId, LatLng position, MarkerId markerId)
-      : super(mapId, position, markerId);
+  MarkerDragEndEvent(int mapId, LatLng position, MarkerId markerId) : super(mapId, position, markerId);
 }
 
 /// An event fired when a [Polyline] is tapped.
@@ -160,8 +157,7 @@ class GroundOverlayTapEvent extends MapEvent<GroundOverlayId> {
   /// Build GroundOverlayTap Event triggered from the map represented by `mapId`.
   ///
   /// The `value` of this event is a [GroundOverlayId] object that represents the tapped GroundOverlay
-  GroundOverlayTapEvent(int mapId, GroundOverlayId groundOverlayId)
-      : super(mapId, groundOverlayId);
+  GroundOverlayTapEvent(int mapId, GroundOverlayId groundOverlayId) : super(mapId, groundOverlayId);
 }
 
 /// An event fired when a Map is tapped.

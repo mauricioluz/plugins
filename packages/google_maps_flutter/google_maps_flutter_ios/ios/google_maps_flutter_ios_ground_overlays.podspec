@@ -2,7 +2,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'google_maps_flutter_ios'
+  s.name             = 'google_maps_flutter_ios_ground_overlays'
   s.version          = '0.0.1'
   s.summary          = 'Google Maps for Flutter'
   s.description      = <<-DESC

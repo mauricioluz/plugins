@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-library google_maps_flutter;
+library google_maps_flutter_ground_overlays;
 
 import 'dart:async';
 import 'dart:io';
@@ -13,10 +13,10 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
-import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
+import 'package:google_maps_flutter_android_ground_overlays/google_maps_flutter_android_ground_overlays.dart';
+import 'package:google_maps_flutter_platform_interface_ground_overlays/google_maps_flutter_platform_interface_ground_overlays.dart';
 
-export 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart'
+export 'package:google_maps_flutter_platform_interface_ground_overlays/google_maps_flutter_platform_interface_ground_overlays.dart'
     show
         ArgumentCallbacks,
         ArgumentCallback,

@@ -5,7 +5,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter_ground_overlays/google_maps_flutter_ground_overlays.dart';
 
 import 'fake_maps_controllers.dart';
 
@@ -22,12 +22,10 @@ Widget _mapWithCircles(Set<Circle> circles) {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final FakePlatformViewsController fakePlatformViewsController =
-      FakePlatformViewsController();
+  final FakePlatformViewsController fakePlatformViewsController = FakePlatformViewsController();
 
   setUpAll(() {
-    SystemChannels.platform_views.setMockMethodCallHandler(
-        fakePlatformViewsController.fakePlatformViewsMethodHandler);
+    SystemChannels.platform_views.setMockMethodCallHandler(fakePlatformViewsController.fakePlatformViewsMethodHandler);
   });
 
   setUp(() {
@@ -38,8 +36,7 @@ void main() {
     const Circle c1 = Circle(circleId: CircleId('circle_1'));
     await tester.pumpWidget(_mapWithCircles(<Circle>{c1}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.circlesToAdd.length, 1);
 
     final Circle initializedCircle = platformGoogleMap.circlesToAdd.first;
@@ -55,8 +52,7 @@ void main() {
     await tester.pumpWidget(_mapWithCircles(<Circle>{c1}));
     await tester.pumpWidget(_mapWithCircles(<Circle>{c1, c2}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.circlesToAdd.length, 1);
 
     final Circle addedCircle = platformGoogleMap.circlesToAdd.first;
@@ -73,8 +69,7 @@ void main() {
     await tester.pumpWidget(_mapWithCircles(<Circle>{c1}));
     await tester.pumpWidget(_mapWithCircles(<Circle>{}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.circleIdsToRemove.length, 1);
     expect(platformGoogleMap.circleIdsToRemove.first, equals(c1.circleId));
 
@@ -89,8 +84,7 @@ void main() {
     await tester.pumpWidget(_mapWithCircles(<Circle>{c1}));
     await tester.pumpWidget(_mapWithCircles(<Circle>{c2}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.circlesToChange.length, 1);
     expect(platformGoogleMap.circlesToChange.first, equals(c2));
 
@@ -105,8 +99,7 @@ void main() {
     await tester.pumpWidget(_mapWithCircles(<Circle>{c1}));
     await tester.pumpWidget(_mapWithCircles(<Circle>{c2}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.circlesToChange.length, 1);
 
     final Circle update = platformGoogleMap.circlesToChange.first;
@@ -125,8 +118,7 @@ void main() {
     await tester.pumpWidget(_mapWithCircles(prev));
     await tester.pumpWidget(_mapWithCircles(cur));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
 
     expect(platformGoogleMap.circlesToChange, cur);
     expect(platformGoogleMap.circleIdsToRemove.isEmpty, true);
@@ -146,8 +138,7 @@ void main() {
     await tester.pumpWidget(_mapWithCircles(prev));
     await tester.pumpWidget(_mapWithCircles(cur));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
 
     expect(platformGoogleMap.circlesToChange.length, 1);
     expect(platformGoogleMap.circlesToAdd.length, 1);
@@ -169,8 +160,7 @@ void main() {
     await tester.pumpWidget(_mapWithCircles(prev));
     await tester.pumpWidget(_mapWithCircles(cur));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
 
     expect(platformGoogleMap.circlesToChange, <Circle>{c3});
     expect(platformGoogleMap.circleIdsToRemove.isEmpty, true);
@@ -186,8 +176,7 @@ void main() {
     await tester.pumpWidget(_mapWithCircles(prev));
     await tester.pumpWidget(_mapWithCircles(cur));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
 
     expect(platformGoogleMap.circlesToChange.isEmpty, true);
     expect(platformGoogleMap.circleIdsToRemove.isEmpty, true);

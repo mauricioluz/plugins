@@ -10,7 +10,7 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter_ground_overlays/google_maps_flutter_ground_overlays.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:stream_transform/stream_transform.dart';
 
@@ -81,8 +81,7 @@ class TestGoogleMapsFlutterPlatform extends GoogleMapsFlutterPlatform {
   bool disposed = false;
 
   // Stream controller to inject events for testing.
-  final StreamController<MapEvent<dynamic>> mapEventStreamController =
-      StreamController<MapEvent<dynamic>>.broadcast();
+  final StreamController<MapEvent<dynamic>> mapEventStreamController = StreamController<MapEvent<dynamic>>.broadcast();
 
   @override
   Future<void> init(int mapId) async {}
@@ -151,8 +150,7 @@ class TestGoogleMapsFlutterPlatform extends GoogleMapsFlutterPlatform {
   Future<LatLngBounds> getVisibleRegion({
     required int mapId,
   }) async {
-    return LatLngBounds(
-        southwest: const LatLng(0, 0), northeast: const LatLng(0, 0));
+    return LatLngBounds(southwest: const LatLng(0, 0), northeast: const LatLng(0, 0));
   }
 
   @override
@@ -286,8 +284,7 @@ class TestGoogleMapsFlutterPlatform extends GoogleMapsFlutterPlatform {
     Set<Circle> circles = const <Circle>{},
     Set<TileOverlay> tileOverlays = const <TileOverlay>{},
     Set<GroundOverlay> groundOverlays = const <GroundOverlay>{},
-    Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers =
-        const <Factory<OneSequenceGestureRecognizer>>{},
+    Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers = const <Factory<OneSequenceGestureRecognizer>>{},
     Map<String, dynamic> mapOptions = const <String, dynamic>{},
   }) {
     onPlatformViewCreated(0);

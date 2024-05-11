@@ -5,7 +5,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter_ground_overlays/google_maps_flutter_ground_overlays.dart';
 
 import 'fake_maps_controllers.dart';
 
@@ -22,12 +22,10 @@ Widget _mapWithPolylines(Set<Polyline> polylines) {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final FakePlatformViewsController fakePlatformViewsController =
-      FakePlatformViewsController();
+  final FakePlatformViewsController fakePlatformViewsController = FakePlatformViewsController();
 
   setUpAll(() {
-    SystemChannels.platform_views.setMockMethodCallHandler(
-        fakePlatformViewsController.fakePlatformViewsMethodHandler);
+    SystemChannels.platform_views.setMockMethodCallHandler(fakePlatformViewsController.fakePlatformViewsMethodHandler);
   });
 
   setUp(() {
@@ -38,8 +36,7 @@ void main() {
     const Polyline p1 = Polyline(polylineId: PolylineId('polyline_1'));
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p1}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.polylinesToAdd.length, 1);
 
     final Polyline initializedPolyline = platformGoogleMap.polylinesToAdd.first;
@@ -55,8 +52,7 @@ void main() {
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p1}));
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p1, p2}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.polylinesToAdd.length, 1);
 
     final Polyline addedPolyline = platformGoogleMap.polylinesToAdd.first;
@@ -73,8 +69,7 @@ void main() {
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p1}));
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.polylineIdsToRemove.length, 1);
     expect(platformGoogleMap.polylineIdsToRemove.first, equals(p1.polylineId));
 
@@ -84,14 +79,12 @@ void main() {
 
   testWidgets('Updating a polyline', (WidgetTester tester) async {
     const Polyline p1 = Polyline(polylineId: PolylineId('polyline_1'));
-    const Polyline p2 =
-        Polyline(polylineId: PolylineId('polyline_1'), geodesic: true);
+    const Polyline p2 = Polyline(polylineId: PolylineId('polyline_1'), geodesic: true);
 
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p1}));
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p2}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.polylinesToChange.length, 1);
     expect(platformGoogleMap.polylinesToChange.first, equals(p2));
 
@@ -101,14 +94,12 @@ void main() {
 
   testWidgets('Updating a polyline', (WidgetTester tester) async {
     const Polyline p1 = Polyline(polylineId: PolylineId('polyline_1'));
-    const Polyline p2 =
-        Polyline(polylineId: PolylineId('polyline_1'), geodesic: true);
+    const Polyline p2 = Polyline(polylineId: PolylineId('polyline_1'), geodesic: true);
 
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p1}));
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p2}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.polylinesToChange.length, 1);
 
     final Polyline update = platformGoogleMap.polylinesToChange.first;
@@ -127,8 +118,7 @@ void main() {
     p1.points.add(const LatLng(1.0, 1.0));
     await tester.pumpWidget(_mapWithPolylines(<Polyline>{p1}));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
     expect(platformGoogleMap.polylinesToChange.length, 1);
     expect(platformGoogleMap.polylinesToChange.first, equals(p1));
 
@@ -147,8 +137,7 @@ void main() {
     await tester.pumpWidget(_mapWithPolylines(prev));
     await tester.pumpWidget(_mapWithPolylines(cur));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
 
     expect(platformGoogleMap.polylinesToChange, cur);
     expect(platformGoogleMap.polylineIdsToRemove.isEmpty, true);
@@ -168,8 +157,7 @@ void main() {
     await tester.pumpWidget(_mapWithPolylines(prev));
     await tester.pumpWidget(_mapWithPolylines(cur));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
 
     expect(platformGoogleMap.polylinesToChange.length, 1);
     expect(platformGoogleMap.polylinesToAdd.length, 1);
@@ -191,8 +179,7 @@ void main() {
     await tester.pumpWidget(_mapWithPolylines(prev));
     await tester.pumpWidget(_mapWithPolylines(cur));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
 
     expect(platformGoogleMap.polylinesToChange, <Polyline>{p3});
     expect(platformGoogleMap.polylineIdsToRemove.isEmpty, true);
@@ -208,8 +195,7 @@ void main() {
     await tester.pumpWidget(_mapWithPolylines(prev));
     await tester.pumpWidget(_mapWithPolylines(cur));
 
-    final FakePlatformGoogleMap platformGoogleMap =
-        fakePlatformViewsController.lastCreatedView!;
+    final FakePlatformGoogleMap platformGoogleMap = fakePlatformViewsController.lastCreatedView!;
 
     expect(platformGoogleMap.polylinesToChange.isEmpty, true);
     expect(platformGoogleMap.polylineIdsToRemove.isEmpty, true);

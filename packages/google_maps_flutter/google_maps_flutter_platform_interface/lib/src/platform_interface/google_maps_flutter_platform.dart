@@ -14,7 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import '../../google_maps_flutter_platform_interface.dart';
+import '../../google_maps_flutter_platform_interface_ground_overlays.dart';
 import '../types/utils/map_configuration_serialization.dart';
 
 /// The interface that platform-specific implementations of `google_maps_flutter` must extend.
@@ -76,8 +76,7 @@ abstract class GoogleMapsFlutterPlatform extends PlatformInterface {
     MapConfiguration configuration, {
     required int mapId,
   }) {
-    return updateMapOptions(jsonForMapConfiguration(configuration),
-        mapId: mapId);
+    return updateMapOptions(jsonForMapConfiguration(configuration), mapId: mapId);
   }
 
   /// Updates marker configuration.
@@ -169,8 +168,7 @@ abstract class GoogleMapsFlutterPlatform extends PlatformInterface {
     GroundOverlayUpdates groundOverlayUpdates, {
     required int mapId,
   }) {
-    throw UnimplementedError(
-        'updateGroundOverlays() has not been implemented.');
+    throw UnimplementedError('updateGroundOverlays() has not been implemented.');
   }
 
   /// Starts an animated change of the map camera position.
@@ -255,8 +253,7 @@ abstract class GoogleMapsFlutterPlatform extends PlatformInterface {
     MarkerId markerId, {
     required int mapId,
   }) {
-    throw UnimplementedError(
-        'showMarkerInfoWindow() has not been implemented.');
+    throw UnimplementedError('showMarkerInfoWindow() has not been implemented.');
   }
 
   /// Programmatically hide the Info Window for a [Marker].
@@ -271,8 +268,7 @@ abstract class GoogleMapsFlutterPlatform extends PlatformInterface {
     MarkerId markerId, {
     required int mapId,
   }) {
-    throw UnimplementedError(
-        'hideMarkerInfoWindow() has not been implemented.');
+    throw UnimplementedError('hideMarkerInfoWindow() has not been implemented.');
   }
 
   /// Returns `true` when the [InfoWindow] is showing, `false` otherwise.
@@ -396,8 +392,7 @@ abstract class GoogleMapsFlutterPlatform extends PlatformInterface {
     Set<Circle> circles = const <Circle>{},
     Set<TileOverlay> tileOverlays = const <TileOverlay>{},
     Set<GroundOverlay> groundOverlays = const <GroundOverlay>{},
-    Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers =
-        const <Factory<OneSequenceGestureRecognizer>>{},
+    Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers = const <Factory<OneSequenceGestureRecognizer>>{},
     // TODO(stuartmorgan): Replace with a structured type that's part of the
     // interface. See https://github.com/flutter/flutter/issues/70330.
     Map<String, dynamic> mapOptions = const <String, dynamic>{},
@@ -469,7 +464,6 @@ abstract class GoogleMapsFlutterPlatform extends PlatformInterface {
   /// inspecting the platform map state.
   @visibleForTesting
   void enableDebugInspection() {
-    throw UnimplementedError(
-        'enableDebugInspection() has not been implemented.');
+    throw UnimplementedError('enableDebugInspection() has not been implemented.');
   }
 }

@@ -5,8 +5,8 @@
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_flutter_ios/google_maps_flutter_ios.dart';
-import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
+import 'package:google_maps_flutter_ios_ground_overlays/google_maps_flutter_ios_ground_overlays.dart';
+import 'package:google_maps_flutter_platform_interface_ground_overlays/google_maps_flutter_platform_interface_ground_overlays.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -24,21 +24,16 @@ void main() {
     required int mapId,
     required Future<dynamic>? Function(MethodCall call) handler,
   }) {
-    maps
-        .ensureChannelInitialized(mapId)
-        .setMockMethodCallHandler((MethodCall methodCall) {
+    maps.ensureChannelInitialized(mapId).setMockMethodCallHandler((MethodCall methodCall) {
       log.add(methodCall.method);
       return handler(methodCall);
     });
   }
 
-  Future<void> sendPlatformMessage(
-      int mapId, String method, Map<dynamic, dynamic> data) async {
-    final ByteData byteData =
-        const StandardMethodCodec().encodeMethodCall(MethodCall(method, data));
+  Future<void> sendPlatformMessage(int mapId, String method, Map<dynamic, dynamic> data) async {
+    final ByteData byteData = const StandardMethodCodec().encodeMethodCall(MethodCall(method, data));
     await TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
-        .handlePlatformMessage('plugins.flutter.dev/google_maps_ios_$mapId',
-            byteData, (ByteData? data) {});
+        .handlePlatformMessage('plugins.flutter.dev/google_maps_ios_$mapId', byteData, (ByteData? data) {});
   }
 
   test('registers instance', () async {
@@ -54,8 +49,7 @@ void main() {
   test('non-void invokeMethods handle types correctly', () async {
     const int mapId = 0;
     final GoogleMapsFlutterIOS maps = GoogleMapsFlutterIOS();
-    configureMockMap(maps, mapId: mapId,
-        handler: (MethodCall methodCall) async {
+    configureMockMap(maps, mapId: mapId, handler: (MethodCall methodCall) async {
       switch (methodCall.method) {
         case 'map#getLatLng':
           return <dynamic>[1.0, 2.0];
@@ -102,23 +96,16 @@ void main() {
     final GoogleMapsFlutterIOS maps = GoogleMapsFlutterIOS();
     maps.ensureChannelInitialized(mapId);
 
-    final StreamQueue<MarkerDragStartEvent> markerDragStartStream =
-        StreamQueue<MarkerDragStartEvent>(maps.onMarkerDragStart(mapId: mapId));
-    final StreamQueue<MarkerDragEvent> markerDragStream =
-        StreamQueue<MarkerDragEvent>(maps.onMarkerDrag(mapId: mapId));
-    final StreamQueue<MarkerDragEndEvent> markerDragEndStream =
-        StreamQueue<MarkerDragEndEvent>(maps.onMarkerDragEnd(mapId: mapId));
+    final StreamQueue<MarkerDragStartEvent> markerDragStartStream = StreamQueue<MarkerDragStartEvent>(maps.onMarkerDragStart(mapId: mapId));
+    final StreamQueue<MarkerDragEvent> markerDragStream = StreamQueue<MarkerDragEvent>(maps.onMarkerDrag(mapId: mapId));
+    final StreamQueue<MarkerDragEndEvent> markerDragEndStream = StreamQueue<MarkerDragEndEvent>(maps.onMarkerDragEnd(mapId: mapId));
 
-    await sendPlatformMessage(
-        mapId, 'marker#onDragStart', jsonMarkerDragStartEvent);
+    await sendPlatformMessage(mapId, 'marker#onDragStart', jsonMarkerDragStartEvent);
     await sendPlatformMessage(mapId, 'marker#onDrag', jsonMarkerDragEvent);
-    await sendPlatformMessage(
-        mapId, 'marker#onDragEnd', jsonMarkerDragEndEvent);
+    await sendPlatformMessage(mapId, 'marker#onDragEnd', jsonMarkerDragEndEvent);
 
-    expect((await markerDragStartStream.next).value.value,
-        equals('drag-start-marker'));
+    expect((await markerDragStartStream.next).value.value, equals('drag-start-marker'));
     expect((await markerDragStream.next).value.value, equals('drag-marker'));
-    expect((await markerDragEndStream.next).value.value,
-        equals('drag-end-marker'));
+    expect((await markerDragEndStream.next).value.value, equals('drag-end-marker'));
   });
 }

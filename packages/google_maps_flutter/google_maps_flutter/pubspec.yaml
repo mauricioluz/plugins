@@ -1,8 +1,8 @@
-name: google_maps_flutter
+name: google_maps_flutter_ground_overlays
 description: A Flutter plugin for integrating Google Maps in iOS and Android applications.
 repository: https://github.com/flutter/plugins/tree/main/packages/google_maps_flutter/google_maps_flutter
 issue_tracker: https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+maps%22
-version: 2.2.3
+version: 1.0.4
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
@@ -12,19 +12,17 @@ flutter:
   plugin:
     platforms:
       android:
-        default_package: google_maps_flutter_android
+        default_package: google_maps_flutter_android_ground_overlays
       ios:
-        default_package: google_maps_flutter_ios
+        default_package: google_maps_flutter_ios_ground_overlays
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_plugin_android_lifecycle: ^2.0.0
-  google_maps_flutter_platform_interface:
-    git:
-      url: https://github.com/mauricioluz/plugins.git
-      path: packages/google_maps_flutter/google_maps_flutter_platform_interface/
-      ref: maps-ground-overlays
+  google_maps_flutter_android_ground_overlays: ^1.0.5
+  google_maps_flutter_ios_ground_overlays: ^1.0.6
+  google_maps_flutter_platform_interface_ground_overlays: ^1.0.1
 
 dev_dependencies:
   flutter_test:
