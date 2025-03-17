@@ -26,51 +26,16 @@ import io.flutter.embedding.engine.plugins.lifecycle.FlutterLifecycleAdapter;
  */
 public class GoogleMapsPlugin implements FlutterPlugin, ActivityAware {
 
-  @Nullable private Lifecycle lifecycle;
+  @Nullable Lifecycle lifecycle;
 
   private static final String VIEW_TYPE = "plugins.flutter.dev/google_maps_android";
-
-  @SuppressWarnings("deprecation")
-  public static void registerWith(
-      final io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
-    final Activity activity = registrar.activity();
-    if (activity == null) {
-      // When a background flutter view tries to register the plugin, the registrar has no activity.
-      // We stop the registration process as this plugin is foreground only.
-      return;
-    }
-    if (activity instanceof LifecycleOwner) {
-      registrar
-          .platformViewRegistry()
-          .registerViewFactory(
-              VIEW_TYPE,
-              new GoogleMapFactory(
-                  registrar.messenger(),
-                  registrar.context(),
-                  new LifecycleProvider() {
-                    @Override
-                    public Lifecycle getLifecycle() {
-                      return ((LifecycleOwner) activity).getLifecycle();
-                    }
-                  }));
-    } else {
-      registrar
-          .platformViewRegistry()
-          .registerViewFactory(
-              VIEW_TYPE,
-              new GoogleMapFactory(
-                  registrar.messenger(),
-                  registrar.context(),
-                  new ProxyLifecycleProvider(activity)));
-    }
-  }
 
   public GoogleMapsPlugin() {}
 
   // FlutterPlugin
 
   @Override
-  public void onAttachedToEngine(FlutterPluginBinding binding) {
+  public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
     binding
         .getPlatformViewRegistry()
         .registerViewFactory(
@@ -88,12 +53,12 @@ public class GoogleMapsPlugin implements FlutterPlugin, ActivityAware {
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPluginBinding binding) {}
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {}
 
   // ActivityAware
 
   @Override
-  public void onAttachedToActivity(ActivityPluginBinding binding) {
+  public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
     lifecycle = FlutterLifecycleAdapter.getActivityLifecycle(binding);
   }
 
@@ -103,7 +68,7 @@ public class GoogleMapsPlugin implements FlutterPlugin, ActivityAware {
   }
 
   @Override
-  public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+  public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
     onAttachedToActivity(binding);
   }
 
@@ -124,7 +89,7 @@ public class GoogleMapsPlugin implements FlutterPlugin, ActivityAware {
     private final LifecycleRegistry lifecycle = new LifecycleRegistry(this);
     private final int registrarActivityHashCode;
 
-    private ProxyLifecycleProvider(Activity activity) {
+    ProxyLifecycleProvider(Activity activity) {
       this.registrarActivityHashCode = activity.hashCode();
       activity.getApplication().registerActivityLifecycleCallbacks(this);
     }
